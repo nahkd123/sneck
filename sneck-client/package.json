@@ -1,0 +1,21 @@
+{
+  "name": "@nahkd123/sneck-client",
+  "version": "0.0.1",
+  "description": "Sneck gaming client",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "./node_modules/.bin/esbuild src/index.ts --bundle --minify --sourcemap --outfile=html/bundle.js",
+    "watch": "./node_modules/.bin/esbuild src/index.ts --bundle --minify --sourcemap --outfile=html/bundle.js --watch"
+  },
+  "keywords": [
+    "snake",
+    "game",
+    "html5"
+  ],
+  "author": "nahkd123",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "esbuild": "^0.14.16"
+  }
+}
