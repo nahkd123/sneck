@@ -1,0 +1,25 @@
+div.icon {
+    --color: white;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+}
+
+div.icon.close > div.wrapperchild::before {
+    content: '';
+    position: absolute;
+    width: 8%;
+    height: 100%;
+    background-color: var(--color);
+    left: 47%;
+    rotate: 45deg;
+}
+div.icon.close > div.wrapperchild::after {
+    content: '';
+    position: absolute;
+    width: 8%;
+    height: 100%;
+    background-color: var(--color);
+    left: 47%;
+    rotate:-45deg;
+}

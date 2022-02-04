@@ -1,4 +1,4 @@
-import { Direction } from "./Direction";
+import { Direction } from "..";
 
 export class Snake {
 

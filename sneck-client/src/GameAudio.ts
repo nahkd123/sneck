@@ -37,13 +37,18 @@ export namespace GameAudio {
         return Promise.all(samplesPath.map(v => loadSample(v)));
     }
 
-    export async function playSample(file: typeof samplesPath[number], channel = Master) {
+    export async function playSample(file: typeof samplesPath[number], channel = Master, volume = 1.00) {
         let buff = samples[file];
         if (context.state != "running") await context.resume();
 
         let node = context.createBufferSource();
         node.buffer = buff;
-        node.connect(channel);
+
+        let gain = context.createGain();
+        gain.gain.value = volume;
+
+        gain.connect(channel);
+        node.connect(gain);
         node.start(0);
     }
 

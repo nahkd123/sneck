@@ -1,6 +1,6 @@
+import { ProcGen } from "@nahkd123/sneck-commons";
 import { sneckMain } from "../..";
 import { Screen } from "../../base/Screen";
-import { ProcGen } from "../../utils/ProcGen";
 import { TextButton } from "../components/TextButton";
 import { BlurScreen } from "./BlurScreen";
 import { SettingsScreen } from "./SettingsScreen";

@@ -1,36 +1,45 @@
-import { popAllScreen, popScreen, sneckMain } from "../..";
+import { popAllScreen, sneckFocused, sneckMain } from "../..";
 import { Cover } from "../../base/Cover";
 import { GameConfig } from "../../GameConfig";
-import { TextButton } from "../components/TextButton";
+import { Icon } from "../components/Icon";
 import { BlurScreen } from "./BlurScreen";
 
 export class GameOverScreen extends BlurScreen {
 
-    constructor(score: number, reason = "Better luck next time!") {
-        super("settings");
+    closeButton: Icon;
 
-        let header = document.createElement("h1");
-        header.textContent = "Game Over";
+    constructor(score: number, title = "Game Over", subtitle = "Unknown gamemode") {
+        super("game-over");
+
         let subtext = document.createElement("h2");
-        subtext.textContent = reason;
+        subtext.textContent = subtitle;
+        let header = document.createElement("h1");
+        header.textContent = title;
 
         this.dom.append(
+            subtext,
             header,
-            subtext
         );
 
-        this.append(new TextButton("Score: " + score));
-        this.append(new TextButton(score > GameConfig.highScore? "New Highscore!" : ("Highscore: " + GameConfig.highScore)));
-        this.append(new TextButton("Back").bindEvent(() => {
-            let cover = new Cover();
-            sneckMain.append(cover);
-            setTimeout(() => cover.fadeIn(), 1);
-            setTimeout(() => popAllScreen(), 500);
-            setTimeout(() => cover.fadeOut(), 1000);
-            setTimeout(() => cover.remove(), 1500);
-        }));
+        this.append(this.closeButton = new Icon("close"));
 
         if (score > GameConfig.highScore) GameConfig.highScore = score;
+
+        this.closeButton.dom.addEventListener("click", () => this.coverToMainMenu());
+    }
+
+    handleKeyUnderlying(event: KeyboardEvent): void {
+        if (event.code == "Escape") this.coverToMainMenu();
+    }
+
+    coverToMainMenu() {
+        let cover = new Cover();
+        sneckMain.append(cover);
+        sneckFocused[0] = null;
+        setTimeout(() => cover.fadeIn(), 5);
+        setTimeout(() => popAllScreen(), 500);
+        setTimeout(() => cover.fadeOut(), 510);
+        setTimeout(() => cover.remove(), 1100);
     }
 
 }

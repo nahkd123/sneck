@@ -1,8 +1,5 @@
+import { Direction, Game, LocalPeer, ObjectBag, Objective, Packets, Player, ProcGen, SpeedRule } from "@nahkd123/sneck-commons";
 import { popScreen, sneckFocused, sneckMain } from "../..";
-import { Game } from "../../game/Game";
-import { Objective } from "../../game/Objective";
-import { Playfield } from "../../game/Playfield";
-import { ProcGen } from "../../utils/ProcGen";
 import { TextButton } from "../components/TextButton";
 import { FadeScreen } from "./FadeScreen";
 import { GameScreen } from "./GameScreen";
@@ -24,18 +21,41 @@ export class SingleplayerScreen extends FadeScreen {
         );
 
         this.append(new TextButton("Play").bindEvent(() => {
-            let game = new Game(Objective.SCORE);
-            game.primary = new Playfield(BigInt(Date.now()));
-            game.primary.width = 10;
-            game.primary.height = 10;
-            game.primary.bag.update();
-            
-            let screen = new GameScreen(game);
-            sneckMain.append(sneckFocused[0] = screen);
-            console.log(game);
+            let peer = new LocalPeer();
 
+            let game = new Game({
+                objective: Objective.SCORE,
+                initialSpeed: 18,
+                speedRule: SpeedRule.LENGTH,
+                boardWidth: 10,
+                boardHeight: 10
+            });
+            game.current = 0;
+
+            let player = new Player(game);
+            player.id = 0;
+            player.name = "Player";
+            player.outgoingConnection = peer.server;
+            player.bag = new ObjectBag(game.width, game.height);
+            player.bag.randomizer = new ProcGen.Random();
+            player.bag.serverUpdate();
+            game.players.push(player);
+            peer.server.player = player;
+            peer.server.setNewGame(game, 0);
+
+            player.onEliminate = () => {
+                peer.server.sendPacket(<Packets.Packet> {
+                    type: "client-event",
+                    event: "game-over"
+                });
+            };
+
+            let screen = new GameScreen(peer.client);
+            screen.gamemode = "Singleplayer";
+
+            sneckFocused[0] = screen;
+            sneckMain.append(screen);
             game.start();
-            screen.initRenderer();
         }));
         this.append(new TextButton("Back").bindEvent(() => popScreen()));
     }

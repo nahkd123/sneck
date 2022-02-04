@@ -1,10 +1,7 @@
 import { popScreen, sneckMain } from "../..";
-import { Screen } from "../../base/Screen";
 import { GameConfig } from "../../GameConfig";
-import { ProcGen } from "../../utils/ProcGen";
 import { TextButton } from "../components/TextButton";
 import { BlurScreen } from "./BlurScreen";
-import { SingleplayerScreen } from "./SingleplayerScreen";
 
 export class SettingsScreen extends BlurScreen {
 

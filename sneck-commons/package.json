@@ -1,0 +1,15 @@
+{
+  "name": "@nahkd123/sneck-commons",
+  "version": "0.0.1",
+  "description": "Game logic and commons classes for client + server",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "snake",
+    "game"
+  ],
+  "author": "nahkd123",
+  "license": "GPL-3.0-or-later"
+}

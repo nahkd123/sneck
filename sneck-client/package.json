@@ -16,6 +16,7 @@
   "author": "nahkd123",
   "license": "GPL-3.0-or-later",
   "dependencies": {
+    "@nahkd123/sneck-commons": "file:../sneck-commons",
     "esbuild": "^0.14.16"
   }
 }

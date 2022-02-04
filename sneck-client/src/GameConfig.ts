@@ -1,4 +1,4 @@
-import { Object } from "./game/Object";
+import { Object } from "@nahkd123/sneck-commons";
 
 export namespace GameConfig {
 
@@ -10,11 +10,15 @@ export namespace GameConfig {
     export let snakeColor = "#FFFFFF";
     export let snakeEyeColor = "#5c5c5c";
     export let objectsColor: Record<Object["type"], string[]> = {
-        "attack": ["#FFB877", "#FF8933"],
+        "apple": ["#FFB877", "#FF8933"],
         "go-over": ["#9BE7FF", "#33CEFF"],
-        "reduce-length": ["#7AFF77", "#28E924"]
+        "cut": ["#7AFF77", "#28E924"]
     };
     export let countdownColor = "#FFCFAF";
+
+    // Translations
+    export let countdownText = ["READY", "SET", "GO"];
+    export let gameoverText = "GAME OVER";
 
     // scoring thing haha what am i doing...
     export let highScore = 0;
